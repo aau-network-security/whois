@@ -96,7 +96,8 @@ func (c *Client) fetchWhois(ctx context.Context, req *Request) (*Response, error
 	if req.Host == "" {
 		return nil, &FetchError{fmt.Errorf("no request host for %s", req.Query), "unknown"}
 	}
-	conn, err := c.dialContext(ctx, "tcp", req.Host+":43")
+	address := fmt.Sprintf("%s:%d", req.Host, req.Port)
+	conn, err := c.dialContext(ctx, "tcp", address)
 	if err != nil {
 		return nil, &FetchError{err, req.Host}
 	}

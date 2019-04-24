@@ -9,6 +9,7 @@ const (
 type Request struct {
 	Query string
 	Host  string
+	Port  int
 	URL   string
 	Body  []byte
 }
@@ -16,7 +17,10 @@ type Request struct {
 // NewRequest returns a prepared Request ready to fetch.
 // On error, returns a nil Request and the error.
 func NewRequest(query string) (*Request, error) {
-	req := &Request{Query: query}
+	req := &Request{
+		Query: query,
+		Port:  43,
+	}
 	if err := req.Prepare(); err != nil {
 		return nil, err
 	}
